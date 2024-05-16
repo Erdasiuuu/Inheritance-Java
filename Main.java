@@ -1,12 +1,39 @@
 import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main
 {
 
   public static void main(String[] args) {
-      Organization x = new Organization();
-      System.out.println(x);
+	  List<Organization> list = new ArrayList<>();
+	  Scanner scanner = new Scanner(System.in);
+	  int choice = 0;
+	  while (choice != Constants.EXIT.getValue()) {
+		  printMenu();
+		  choice = scanner.nextInt();
+		  scanner.nextLine();
+		  if (choice == Constants.ADD_OBJECT.getValue()) {
+			  Organization.addObject();
+		  }
+		  else if (choice == Constants.REMOVE_OBJECT.getValue()) {
+			  Organization.removeObject();
+		  }
+		  else if (choice == Constants.OUTPUT_LIST.getValue()) {
+			  Organization.outputList();
+		  }
+		  else if (choice == Constants.CHECK_EQUALS.getValue()) {
+			  Organization.checkEquals();
+		  }
+		  else if (choice != Constants.EXIT.getValue()) {
+			  printErrorInput();
+		  }
+	  }
   }
+
+  	public static void printErrorInput() {
+    		System.out.printf("\nНеверный ввод. Попробуйте еще раз\n");
+  	}
 
     public static class Organization {
     
@@ -46,10 +73,16 @@ public class Main
     
     }
 
-  public class Fabrics extends Organization {
+  public static class Fabrics extends Organization {
 
     private String productionType;
     private int productionCapacity;
+    
+    public Fabrics() {
+        super();
+        this.productionType = "productionType";
+        this.productionCapacity = 1;
+    }
 
     public Fabrics(String name, int foundationYear, int id, String productionType, int productionCapacity) {
         super(name, foundationYear, id);
@@ -57,11 +90,6 @@ public class Main
         this.productionCapacity = productionCapacity;
     }
 
-    public Fabrics() {
-        super();
-        this.productionType = "productionType";
-        this.productionCapacity = 1;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -76,7 +104,7 @@ public class Main
 
   }
     
-  public class InsuranceCompany extends Organization {
+  public static class InsuranceCompany extends Organization {
 
     private String insuranceType;
     private int numberOfClients;
@@ -95,8 +123,8 @@ public class Main
 
      @Override
     public boolean equals(Object o) {
-        Fabrics fabrics = (Fabrics) o;
-        return super.equals(o) && this.insuranceType.equals(fabrics.insuranceType) && this.numberOfClients == fabrics.numberOfClients;
+        InsuranceCompany insuranceCompany = (InsuranceCompany) o;
+        return super.equals(o) && this.insuranceType.equals(insuranceCompany.insuranceType) && this.numberOfClients == insuranceCompany.numberOfClients;
     }
 
     @Override
@@ -106,7 +134,7 @@ public class Main
 
     }
     
-  public class Factory extends Organization {
+  public static class Factory extends Organization {
 
     private String productionType;
     private int numberOfEmployees;
