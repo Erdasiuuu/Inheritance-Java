@@ -15,7 +15,7 @@ public class Main {
       if (choice == Constants.ADD_OBJECT.getValue()) {
 	pickClass(list, scanner);
       } else if (choice == Constants.REMOVE_OBJECT.getValue()) {
-        Organization.removeObject(list);
+        Organization.removeObject(list, scanner);
       } else if (choice == Constants.OUTPUT_LIST.getValue()) {
         Organization.output(list);
       } else if (choice == Constants.CHECK_EQUALS.getValue()) {
@@ -35,11 +35,13 @@ public class Main {
       		if (choice == 1) {
 	Organization organization = new Organization();
 			organization.addObject();
+			organization.printSuccessAdd();
 			list.add(organization);
 		}
 		else if (choice == 2) {
 			Factory factory = new Factory();
 			factory.addObject();
+			factory.printSuccessAdd();
 			list.add(factory);
 		}
 		else if (choice != 5) {

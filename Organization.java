@@ -100,7 +100,34 @@ public class Organization {
 		  }
   }
 
-  public static void removeObject(List<Organization> list) {
+  public static void removeObject(List<Organization> list, Scanner scanner) {
+	  int size = list.size();
+	  checkListSize(size);
+	  if (size != 0) {
+		  output(list);
+		  int choice = getListIndex(size, scanner);
+		  System.out.printf("\nУдален объект"); 
+		  list.get(choice).outputObject();
+		  list.remove(choice);
+	  }
+  }
+
+  protected static void printIndexFindMenu(int size) {
+    System.out.printf(
+        "Введите индекс объекта. Общее количество объектов в списке: %d. Отсчет начинается с 1\n", size);
+  }
+
+  protected static int getListIndex(int size, Scanner scanner) {
+    int choice = 0;
+    while (choice <= 0 || choice > size) {
+      printIndexFindMenu(size);
+      choice = scanner.nextInt();
+      scanner.nextLine();
+      if (choice <= 0 || choice > size) {
+        Main.printErrorInput();
+      }
+    }
+    return --choice;
   }
 
   protected static void output(List<Organization> list) {
@@ -120,7 +147,13 @@ public class Organization {
     }
   }
 
+  public void printSuccessAdd() {
+	  System.out.printf("\nУспешно добавлен объект");
+	  outputObject();
+  }
+
   public static void checkEquals(List<Organization> list) {
+	  
   }
 
   private void printAttributes() {
@@ -132,7 +165,7 @@ public class Organization {
   }
 
   protected void outputObject() {
-	  System.out.printf("\n%s\n", this);
+	  System.out.printf("\n%s\n\n", this);
   }
 
   @Override
