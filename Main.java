@@ -19,7 +19,7 @@ public class Main {
       } else if (choice == Constants.OUTPUT_LIST.getValue()) {
         Organization.output(list);
       } else if (choice == Constants.CHECK_EQUALS.getValue()) {
-        Organization.checkEquals(list);
+        Organization.checkEquals(list, scanner);
       } else if (choice != Constants.EXIT.getValue()) {
         printErrorInput();
       }
@@ -43,6 +43,18 @@ public class Main {
 			factory.addObject();
 			factory.printSuccessAdd();
 			list.add(factory);
+		}
+		else if (choice == 3) {
+			InsuranceCompany insuranceCompany = new InsuranceCompany();
+			insuranceCompany.addObject();
+			insuranceCompany.printSuccessAdd();
+			list.add(insuranceCompany);
+		}
+		else if (choice == 4) {
+			Fabrics fabrics = new Fabrics();
+			fabrics.addObject();
+			fabrics.printSuccessAdd();
+			list.add(fabrics);
 		}
 		else if (choice != 5) {
 			printErrorInput();

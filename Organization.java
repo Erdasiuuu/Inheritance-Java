@@ -4,19 +4,16 @@ import java.util.Scanner;
 public class Organization {
   protected String name;
   protected int foundationYear;
-  protected int id;
   protected Scanner scanner = new Scanner(System.in);
 
   public Organization() {
     this.name = "name";
     this.foundationYear = 2024;
-    this.id = -1;
   }
 
-  public Organization(String name, int foundationYear, int id) {
+  public Organization(String name, int foundationYear) {
     this.name = name;
     this.foundationYear = foundationYear;
-    this.id = id;
   }
 
   public void setName(String name) {
@@ -28,12 +25,6 @@ public class Organization {
   public void setFoundationYear(int foundationYear) {
 	  if (positiveNum(foundationYear, this.foundationYear) == true) {
 		  this.foundationYear = foundationYear;
-	  }
-  }
-
-  public void setId(int id) {
-	  if (positiveNum(id, this.id) == true) {
-		  this.id = id;
 	  }
   }
 
@@ -66,7 +57,8 @@ public class Organization {
   protected void addObject() {
 	  int choice = 0;
 	  while (choice != 5) {
-		  printAttributes();
+		  printDefaultAttributes();
+	          printOutputAndExit();	
 		  choice = scanner.nextInt();
 		  scanner.nextLine();
 		  setDefaultAttributes(choice);
@@ -84,18 +76,13 @@ public class Organization {
 			  scanner.nextLine();
 			  setFoundationYear(num);
 		  }
-		  else if (choice == 3) {
-			  int num = scanner.nextInt();
-			  scanner.nextLine();
-			  setId(num);
-		  }
   }
 
   protected void objectOutputAndErrorInput(int choice) {
-  		  if (choice == 4){
+  		  if (choice == 3){
 			  outputObject();
 		  }
-		  else if (choice > 5 || choice <= 0) {
+		  else if (choice > 4 || choice <= 0) {
 			  Main.printErrorInput();
 		  }
   }
@@ -152,16 +139,30 @@ public class Organization {
 	  outputObject();
   }
 
-  public static void checkEquals(List<Organization> list) {
-	  
+  public static void checkEquals(List<Organization> list, Scanner scanner) {
+	  int size = list.size();
+       checkListSize(size);
+	if (size > 0) {
+	    	int firstChoice = getListIndex(size, scanner);
+		int secondChoice = getListIndex(size, scanner);
+		if (list.get(firstChoice).hashCode() == list.get(secondChoice).hashCode() || list.get(firstChoice).equals(list.get(secondChoice))) {
+			System.out.printf("\nЭлементы равны\n");
+		}
+		else {
+			System.out.printf("\nЭлементы не равны\n");
+		}
+	}
+
   }
 
-  private void printAttributes() {
+  protected void printDefaultAttributes() {
     System.out.printf("\n1. Название\n");
     System.out.printf("2. Год основания\n");
-    System.out.printf("3. ID\n");
-    System.out.printf("4. Вывести текущие данные\n");
-    System.out.printf("5. Закончить ввод\n");
+  }
+
+  private void printOutputAndExit() {
+    System.out.printf("3. Вывести текущие данные\n");
+    System.out.printf("4. Закончить ввод\n");
   }
 
   protected void outputObject() {
@@ -170,14 +171,33 @@ public class Organization {
 
   @Override
   public boolean equals(Object o) {
-    Organization organization = (Organization) o;
-    return this.name.equals(organization.name) && this.foundationYear == organization.foundationYear
-        && this.id == organization.id;
+    boolean result = defaultCheck(o);
+    if (result == true) {
+		Organization organization = (Organization)o;
+	    result = cmpDefaultAttributes(organization.name, organization.foundationYear);
+    }
+    return result;
+  }
+
+  protected boolean defaultCheck(Object o) {
+    boolean result = true;
+    if (this == o) {
+	    result = true;
+    }
+    else if (o == null || this.getClass() != o.getClass()) {
+	    result = false;
+    }
+    return result;
+  }
+
+
+  protected boolean cmpDefaultAttributes(String name, int foundationYear) {
+	  return this.name.equals(name) && this.foundationYear == foundationYear;
   }
 
   @Override
   public int hashCode() {
-    return id;
+	  return Objects.hash(name, foundationYear);
   }
 
   @Override
@@ -186,7 +206,7 @@ public class Organization {
   }
 
   protected String defaultAttributes() {
-	  return "ID = " + id + ", Name = " + name
+	  return "Name = " + name
         + ", Foundation year = " + foundationYear;
   }
 }
