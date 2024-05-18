@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 public class Factory extends Organization {
   private String productionType;
   private int numberOfEmployees;
@@ -29,28 +31,26 @@ public class Factory extends Organization {
   @Override
   protected void addObject() {
 	  int choice = 0;
-	  while (choice != 7) {
+	  while (choice != 6) {
 		  super.printDefaultAttributes();
 		  printSpecificAttributes();
-		  super.printChildOutputAndExit();
+		  super.printOutputAndExit(0);
 		  choice = scanner.nextInt();
 		  scanner.nextLine();
 		  super.setDefaultAttributes(choice);
-		  setNewAttributes(choice);
-		  super.objectOutputAndErrorInput(choice - 2);
+		  if (setNewAttributes(choice) == false && super.objectOutput(choice - 2) == false) {
+			  Main.printErrorInput();
+		  }
 	  }
   }
 
-  private void printAttributes() {
-    System.out.printf("\n1. Название\n");
-    System.out.printf("2. Год основания\n");
+  private void printSpecificAttributes() {
     System.out.printf("3. Тип продукции\n");
     System.out.printf("4. Количество сотрудников\n");
-    System.out.printf("5. Вывести текущие данные\n");
-    System.out.printf("6. Закончить ввод\n");
   }
 
-  private void setNewAttributes(int choice) {
+  private boolean setNewAttributes(int choice) {
+	  boolean result = true;
 	  if (choice == 3) {
 		String productionType = scanner.nextLine();
 		setProductionType(productionType);
@@ -60,6 +60,10 @@ public class Factory extends Organization {
 		  scanner.nextLine();
 		  setNumberOfEmployees(numberOfEmployees);
 	  }
+	  else {
+		  result = false;
+	  }
+	  return result;
  }
 
   @Override
@@ -67,7 +71,7 @@ public class Factory extends Organization {
     boolean result = defaultCheck(o);
     if (result == true) {
 	    Factory factory = (Factory) o;
-	    result = cmpDefauleAttributes(factory.name, factory.foundationYear) && cmpSpecificAttributes(factory.productionType, factory.numberOfEmloyees);
+	    result = super.cmpDefaultAttributes(factory.name, factory.foundationYear) && cmpSpecificAttributes(factory.productionType, factory.numberOfEmployees);
     }
     return result;
   }
@@ -82,7 +86,7 @@ public class Factory extends Organization {
 
   @Override
   public String toString() {
-    return "Fabrics: " + super.defaultAttributes() + factoryAttributes();
+    return "Factory : " + super.defaultAttributes() + factoryAttributes();
   }
 
   private String factoryAttributes() {

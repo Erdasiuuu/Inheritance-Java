@@ -1,22 +1,25 @@
+import java.util.Objects;
+
 public class InsuranceCompany extends Organization {
   private String insuranceType;
   private int numberOfClients;
 
   public InsuranceCompany(
-      String name, int foundationYear, int id, String insuranceType, int numberOfClients) {
-    super(name, foundationYear, id);
+      String name, int foundationYear, String insuranceType, int numberOfClients) {
+    super(name, foundationYear);
     this.insuranceType = insuranceType;
     this.numberOfClients = numberOfClients;
   }
 
   public InsuranceCompany() {
     super();
-    this.insuranceType = "productionType";
+    this.insuranceType = "insuranceType";
     this.numberOfClients = 1;
   }
 
   private void setInsuranceType(String insuraceType) {
 	  if (stringExist(insuranceType, this.insuranceType) == true) {
+		  System.out.println(insuraceType);
 		  this.insuranceType = insuranceType;
 	  }
   }
@@ -30,50 +33,70 @@ public class InsuranceCompany extends Organization {
   @Override
   protected void addObject() {
 	  int choice = 0;
-	  while (choice != 7) {
+	  while (choice != 6) {
 		  super.printDefaultAttributes();
 		  printSpecificAttributes();
-		  printOutputAndExit();
+		  super.printOutputAndExit(0);
 		  choice = scanner.nextInt();
 		  scanner.nextLine();
-		  super.setDefaultAttributes(choice);
-		  setSpecificAttributes(choice);
-		  super.objectOutputAndErrorInput(choice - 2);
+		  boolean notDefaultAttributes = super.setDefaultAttributes(choice) == false;
+		  boolean notSpecificAttributes = setSpecificAttributes(choice) == false;
+		  boolean notOutput = super.objectOutput(choice - 2) == false;
+		  if (notDefaultAttributes && notSpecificAttributes && notOutput) {
+			  Main.printErrorInput();
+		  }
 	  }
   }
 
-  private void setSpecificAttributes(int choice) {
-	  if (choice == 4) {
+  private boolean setSpecificAttributes(int choice) {
+	  boolean result = true;
+	  if (choice == 3) {
+		  System.out.println(1);
 		  String insuranceType = scanner.nextLine();
 		  setInsuranceType(insuranceType);
 	  }
-	  else if (choice == 5) {
+	  else if (choice == 4) {
 		  int numberOfClients = scanner.nextInt();
 		  scanner.nextLine();
 		  setNumberOfClients(numberOfClients);
 	  }
+	  else {
+		  result = false;
+	  }
+	  return result;
   }
 
   private void printSpecificAttributes() {
-	  System.out.printf("4. Тип страховки\n");
-	  System.out.printf("5. Количество клиентов\n");
-  }
-
-  private void printOutputAndExit() {
-	  System.out.printf("6. Вывести текущие данные\n");
-	  System.out.printf("7. Закончить ввод\n");
+	  System.out.printf("3. Тип страховки\n");
+	  System.out.printf("4. Количество клиентов\n");
   }
 
   @Override
   public boolean equals(Object o) {
-    InsuranceCompany insuranceCompany = (InsuranceCompany) o;
-    return super.equals(o) && this.insuranceType.equals(insuranceCompany.insuranceType)
-        && this.numberOfClients == insuranceCompany.numberOfClients;
+    boolean result = defaultCheck(o);
+    if (result == true) {
+    	InsuranceCompany insuranceCompany = (InsuranceCompany) o;
+	result = super.cmpDefaultAttributes(insuranceCompany.name, insuranceCompany.foundationYear) && cmpSpecificAttributes(insuranceCompany.insuranceType, insuranceCompany.numberOfClients);
+    }
+            return result;
+  }
+
+  private boolean cmpSpecificAttributes(String insuranceType, int numberOfClients) {
+	  return this.insuranceType.equals(insuranceType) && this.numberOfClients == numberOfClients;
+  }
+
+  @Override
+  public int hashCode() {
+	  return Objects.hash(name, foundationYear, insuranceType, numberOfClients);
   }
 
   @Override
   public String toString() {
-    return super.toString() + ", Production type = " + insuranceType
-        + ", Number of clients = " + numberOfClients;
+    return "Insurance company: " + super.defaultAttributes() + insuranceCompanyAttributes();  
+  }
+
+
+  private String insuranceCompanyAttributes() {
+	  return ", Insurance type = " + insuranceType + ", Number of clients = " + numberOfClients;
   }
 }

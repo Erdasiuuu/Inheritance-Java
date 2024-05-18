@@ -1,5 +1,6 @@
 import java.util.List;
 import java.util.Scanner;
+import java.util.Objects;
 
 public class Organization {
   protected String name;
@@ -56,17 +57,21 @@ public class Organization {
 
   protected void addObject() {
 	  int choice = 0;
-	  while (choice != 5) {
+	  while (choice != 4) {
 		  printDefaultAttributes();
-	          printOutputAndExit();	
+	          printOutputAndExit(2);	
 		  choice = scanner.nextInt();
 		  scanner.nextLine();
-		  setDefaultAttributes(choice);
-		  objectOutputAndErrorInput(choice);
+		  boolean notDefaultAttributes = setDefaultAttributes(choice) == false;
+		  boolean notOutput = objectOutput(choice) == false;
+		  if (notDefaultAttributes && notOutput) {
+			  Main.printErrorInput();
+		  }
 	  }
   }
 
-  protected void setDefaultAttributes(int choice) {
+  protected boolean setDefaultAttributes(int choice) {
+	  	 boolean result = true;
   		  if (choice == 1) {
 			  String name = scanner.nextLine();
 			  setName(name);
@@ -76,15 +81,21 @@ public class Organization {
 			  scanner.nextLine();
 			  setFoundationYear(num);
 		  }
+		  else {
+			  result = false;
+		  }
+		  return result;
   }
 
-  protected void objectOutputAndErrorInput(int choice) {
+  protected boolean objectOutput(int choice) {
+	  	boolean result = true;
   		  if (choice == 3){
 			  outputObject();
 		  }
-		  else if (choice > 4 || choice <= 0) {
-			  Main.printErrorInput();
+		  else {
+			  result = false;
 		  }
+		  return result;
   }
 
   public static void removeObject(List<Organization> list, Scanner scanner) {
@@ -160,9 +171,9 @@ public class Organization {
     System.out.printf("2. Год основания\n");
   }
 
-  private void printOutputAndExit() {
-    System.out.printf("3. Вывести текущие данные\n");
-    System.out.printf("4. Закончить ввод\n");
+  protected void printOutputAndExit(int notChild) {
+    System.out.printf("%d. Вывести текущие данные\n", 5 - notChild);
+    System.out.printf("%d. Закончить ввод\n", 6 - notChild);
   }
 
   protected void outputObject() {
