@@ -17,9 +17,8 @@ public class InsuranceCompany extends Organization {
     this.numberOfClients = 1;
   }
 
-  private void setInsuranceType(String insuraceType) {
+  private void setInsuranceType(String insuranceType) {
 	  if (stringExist(insuranceType, this.insuranceType) == true) {
-		  System.out.println(insuraceType);
 		  this.insuranceType = insuranceType;
 	  }
   }

@@ -154,6 +154,7 @@ public class Organization {
 	  int size = list.size();
        checkListSize(size);
 	if (size > 0) {
+		  output(list);
 	    	int firstChoice = getListIndex(size, scanner);
 		int secondChoice = getListIndex(size, scanner);
 		if (list.get(firstChoice).hashCode() == list.get(secondChoice).hashCode() || list.get(firstChoice).equals(list.get(secondChoice))) {

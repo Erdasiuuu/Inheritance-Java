@@ -38,8 +38,11 @@ public class Fabrics extends Organization {
                   super.printOutputAndExit(0);
                   choice = scanner.nextInt();
                   scanner.nextLine();
-                  super.setDefaultAttributes(choice);
-                  if (setNewAttributes(choice) == false && super.objectOutput(choice - 2) == false) {
+		  boolean notDefaultAttributes = super.setDefaultAttributes(choice) == false;
+                  boolean notSpecificAttributes = setSpecificAttributes(choice) == false;
+                  boolean notOutput = super.objectOutput(choice - 2) == false;
+                  if (notDefaultAttributes && notSpecificAttributes && notOutput) {
+
 			  Main.printErrorInput();
 		  }
           }
@@ -50,7 +53,7 @@ public class Fabrics extends Organization {
 	  System.out.printf("4. Производственная мощность\n");
   }
 
-  private boolean setNewAttributes(int choice) {
+  private boolean setSpecificAttributes(int choice) {
 	  boolean result = true;
 	  if (choice == 3) {
 		  String productionType = scanner.nextLine();
