@@ -3,7 +3,22 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Main {
-
+  /**
+   * @brief Программа для работы с классом "Организация" и его тремя дочерними классами
+   *
+   * Программа в виде простого меню, которое имеет 5 опций
+   * 1. Добавить объект в список
+   * 2. Удалить объект из списка по индексу
+   * 3. Вывести на экран весь список
+   * 4. Сравнить элементы по индексу
+   * 5. Завершить программу
+   *
+   * Все необходимые данные будут запрашиваться до тех пор, пока не будут
+   * введены полностью корректно. Например, при неправильном вводе количества
+   * страниц программа снова будет запрашивать данные, до тех пор пока не будут
+   * ввдены корректные данные
+   *
+   */
   public static void main(String[] args) {
     List<Organization> list = new ArrayList<>();
     Scanner scanner = new Scanner(System.in);
@@ -26,6 +41,10 @@ public class Main {
     }
   }
 
+  /**
+   * @brief Меню для выбора класса, чей экземпляр будет создан для добавления в список
+   *
+   */
   public static void pickClass(List<Organization> list, Scanner scanner) {
 	int choice = 0;
 	while (choice != Constants.EXIT.getValue()) {
