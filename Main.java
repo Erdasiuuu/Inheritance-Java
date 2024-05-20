@@ -28,7 +28,7 @@ public class Main {
       choice = scanner.nextInt();
       scanner.nextLine();
       if (choice == Constants.ADD_OBJECT.getValue()) {
-	pickClass(list, scanner);
+        pickClass(list, scanner);
       } else if (choice == Constants.REMOVE_OBJECT.getValue()) {
         Organization.removeObject(list, scanner);
       } else if (choice == Constants.OUTPUT_LIST.getValue()) {
@@ -46,39 +46,35 @@ public class Main {
    *
    */
   public static void pickClass(List<Organization> list, Scanner scanner) {
-	int choice = 0;
-	while (choice != Constants.EXIT.getValue()) {
-		printClasses();
+    int choice = 0;
+    while (choice != Constants.EXIT.getValue()) {
+      printClasses();
       choice = scanner.nextInt();
       scanner.nextLine();
-      		if (choice == 1) {
-	Organization organization = new Organization();
-			organization.addObject();
-			organization.printSuccessAdd();
-			list.add(organization);
-		}
-		else if (choice == 2) {
-			Factory factory = new Factory();
-			factory.addObject();
-			factory.printSuccessAdd();
-			list.add(factory);
-		}
-		else if (choice == 3) {
-			InsuranceCompany insuranceCompany = new InsuranceCompany();
-			insuranceCompany.addObject();
-			insuranceCompany.printSuccessAdd();
-			list.add(insuranceCompany);
-		}
-		else if (choice == 4) {
-			Fabrics fabrics = new Fabrics();
-			fabrics.addObject();
-			fabrics.printSuccessAdd();
-			list.add(fabrics);
-		}
-		else if (choice != 5) {
-			printErrorInput();
-		}
-	}
+      if (choice == 1) {
+        Organization organization = new Organization();
+        organization.addObject();
+        organization.printSuccessAdd();
+        list.add(organization);
+      } else if (choice == 2) {
+        Factory factory = new Factory();
+        factory.addObject();
+        factory.printSuccessAdd();
+        list.add(factory);
+      } else if (choice == 3) {
+        InsuranceCompany insuranceCompany = new InsuranceCompany();
+        insuranceCompany.addObject();
+        insuranceCompany.printSuccessAdd();
+        list.add(insuranceCompany);
+      } else if (choice == 4) {
+        Fabrics fabrics = new Fabrics();
+        fabrics.addObject();
+        fabrics.printSuccessAdd();
+        list.add(fabrics);
+      } else if (choice != 5) {
+        printErrorInput();
+      }
+    }
   }
 
   public static void printClasses() {
