@@ -28,6 +28,7 @@ public class Organization {
       this.foundationYear = foundationYear;
     }
   }
+
   /**
    * @brief Проверка на пустую строку перед изменением аттрибута
    *
@@ -36,6 +37,7 @@ public class Organization {
    * @return Результат проверки на пустую строку
    *
    */
+
   public boolean stringExist(String str, String previousStr) {
     boolean result = true;
     if (str.length() == 0) {
@@ -48,14 +50,16 @@ public class Organization {
   private String incorrectStr() {
     return "Введена пустая строка, Оставлены предыдущие данные:";
   }
+
   /**
    * @brief Проверка на неотрецательное число
    *
-   * @param Проверяемое число 
+   * @param Проверяемое число
    * @param Число перед заменой
    * @return Результат проверки на неотрицательное число
    *
    */
+
   public boolean positiveNum(int num, int previousNum) {
     boolean result = true;
     if (num < 0) {
@@ -68,6 +72,7 @@ public class Organization {
   private String incorrectNum() {
     return "Введено отрицательное число, Оставлены предыдущие данные:";
   }
+
   /**
    * @brief Добавление элемента в список
    *
@@ -76,6 +81,7 @@ public class Organization {
    * выводится уведомление об этом
    *
    */
+
   protected void addObject() {
     int choice = 0;
     while (choice != 4) {
@@ -90,6 +96,7 @@ public class Organization {
       }
     }
   }
+
   /**
    * @brief Проверка на выбор измениения стандартных аттрибутов родительского класса
    *
@@ -97,6 +104,7 @@ public class Organization {
    * @return Был ли введен один из вариантов на изменение стандартных аттрибутов
    *
    */
+
   protected boolean setDefaultAttributes(int choice) {
     boolean result = true;
     if (choice == 1) {
@@ -111,6 +119,7 @@ public class Organization {
     }
     return result;
   }
+
   /**
    * @brief Проверка на выбор вывода объекта
    *
@@ -118,6 +127,7 @@ public class Organization {
    * @return Был ли введен вариан на изменение вывод объекта
    *
    */
+
   protected boolean objectOutput(int choice) {
     boolean result = true;
     if (choice == 3) {
@@ -127,6 +137,7 @@ public class Organization {
     }
     return result;
   }
+
   /**
    * @brief Удаление объекта из списка
    *
@@ -138,6 +149,7 @@ public class Organization {
    * и удаляем из списка
    *
    */
+
   public static void removeObject(List<Organization> list, Scanner scanner) {
     int size = list.size();
     checkListSize(size);
@@ -151,9 +163,10 @@ public class Organization {
   }
 
   protected static void printIndexFindMenu(int size) {
-    System.out.printf("введите индекс объекта. общее количество объектов в списке: "); 
+    System.out.printf("введите индекс объекта. общее количество объектов в списке: ");
     System.out.printf("%d. Отсчет начинается с 1\n", size);
   }
+
   /**
    * @brief Получение существующего индекса в не пустом списке
    *
@@ -162,6 +175,7 @@ public class Organization {
    * @return Индекс в списке
    *
    */
+
   protected static int getListIndex(int size, Scanner scanner) {
     int choice = 0;
     while (choice <= 0 || choice > size) {
@@ -174,12 +188,14 @@ public class Organization {
     }
     return --choice;
   }
+
   /**
    * @brief Вывод всех элементов списка
    *
    * @param Список объектов
    *
    */
+
   protected static void output(List<Organization> list) {
     int size = list.size();
     checkListSize(size);
@@ -201,6 +217,7 @@ public class Organization {
     System.out.printf("\nУспешно добавлен объект");
     outputObject();
   }
+
   /**
    * @brief Проверка двух элементов из списка на равенство
    *
@@ -208,6 +225,7 @@ public class Organization {
    * @param Сканнер
    *
    */
+
   public static void checkEquals(List<Organization> list, Scanner scanner) {
     int size = list.size();
     checkListSize(size);
@@ -228,6 +246,7 @@ public class Organization {
     System.out.printf("\n1. Название\n");
     System.out.printf("2. Год основания\n");
   }
+
   /**
    * @brief Универсальная часть меню
    *
@@ -235,6 +254,7 @@ public class Organization {
    * родительского или дочернего класса
    *
    */
+
   protected void printOutputAndExit(int notChild) {
     System.out.printf("%d. Вывести текущие данные\n", 5 - notChild);
     System.out.printf("%d. Закончить ввод\n", 6 - notChild);
@@ -243,6 +263,7 @@ public class Organization {
   protected void outputObject() {
     System.out.printf("\n%s\n\n", this);
   }
+
   /**
    * @brief Проверка на равенство объектов
    *
@@ -250,6 +271,7 @@ public class Organization {
    * @return Равны ли объекты
    *
    */
+
   @Override
   public boolean equals(Object o) {
     boolean result = defaultCheck(o);
@@ -259,6 +281,7 @@ public class Organization {
     }
     return result;
   }
+
   /**
    * @brief Стандартная проверка для объекта любого класса
    *
@@ -269,6 +292,7 @@ public class Organization {
    * указывает ли параметр на null, являются ли они объектами одного класса
    *
    */
+
   protected boolean defaultCheck(Object o) {
     boolean result = true;
     if (this == o) {

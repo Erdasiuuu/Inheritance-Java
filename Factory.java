@@ -28,6 +28,15 @@ public class Factory extends Organization {
     }
   }
 
+  /**
+   * @brief Добавление элемента в список
+   *
+   * Выводятся все варианты меню и считывается ввод.
+   * Выполняется проверка на коррекный числовой ввод, в случае ошибки
+   * выводится уведомление об этом
+   *
+   */
+
   @Override
   protected void addObject() {
     int choice = 0;
@@ -51,6 +60,14 @@ public class Factory extends Organization {
     System.out.printf("4. Количество сотрудников\n");
   }
 
+  /**
+   * @brief Проверка на выбор измениения новых аттрибутов дочернего класса
+   *
+   * @param Ранее введенный выбор
+   * @return Был ли введен один из вариантов на изменение аттрибутов дочернего класса
+   *
+   */
+
   private boolean setSpecificAttributes(int choice) {
     boolean result = true;
     if (choice == 3) {
@@ -65,6 +82,14 @@ public class Factory extends Organization {
     }
     return result;
   }
+
+  /**
+   * @brief Проверка на равенство объектов
+   *
+   * @param Объект
+   * @return Равны ли объекты
+   *
+   */
 
   @Override
   public boolean equals(Object o) {
