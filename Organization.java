@@ -151,8 +151,8 @@ public class Organization {
   }
 
   protected static void printIndexFindMenu(int size) {
-    system.out.printf("введите индекс объекта. общее количество объектов в списке: "); 
-    system.out.printf("%d. Отсчет начинается с 1\n", size);
+    System.out.printf("введите индекс объекта. общее количество объектов в списке: "); 
+    System.out.printf("%d. Отсчет начинается с 1\n", size);
   }
   /**
    * @brief Получение существующего индекса в не пустом списке
